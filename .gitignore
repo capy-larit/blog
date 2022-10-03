@@ -246,7 +246,7 @@ flycheck_*.el
 *.code-workspace
 
 # plugins criados pelo ckeditor
-core/static/
+/core/static/
 
 ### Python ###
 # Byte-compiled / optimized / DLL files
