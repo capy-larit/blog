@@ -212,7 +212,52 @@
               </div>
             </div>
           </div>
-        </div>
+
+          <hr class="my-4"/>
+
+          <div class="container bg-dark py-3 d-flex justify-content-center rounded">
+              <span>
+                  <h1 class="text-info">Posts recentes</h1>
+              </span>
+          </div>
+
+          <hr class="my-4"/>
+
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for post in posts|slice:'1:5' %}
+            <div class="col d-flex">
+              <div class="card vh-75 vw-100">
+                <a href="#">
+                  <img src="{{ post.imagem_capa.url }}" class="card-img-top img-350" alt="imagem de capa do post">
+                </a>
+                <div class="card-body pb-3">
+                  
+                  <h5 class="card-title">
+                    <a href="#">{{ post.titulo}}</a>
+                  </h5>
+                
+                  <p class="card-text">{{ post.resumo|slice:':250'|safe }}...</p>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="d-flex justify-content-center">
+                        <div class="span btn">
+                          <i class="fa-solid fa-heart"></i> Curtir
+                        </div>
+                        <div class="span btn">
+                          <i class="fa-solid fa-comment"></i> Comentar
+                        </div>
+                        <div class="span btn">
+                          <i class="fa-sharp fa-solid fa-share"></i> Compartilhar
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          
 
       </div>
     </div>
