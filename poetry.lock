@@ -73,6 +73,17 @@ optional = false
 python-versions = ">=3.6"
 
 [[package]]
+name = "python-dotenv"
+version = "0.21.0"
+description = "Read key-value pairs from a .env file and set them as environment variables"
+category = "main"
+optional = false
+python-versions = ">=3.7"
+
+[package.extras]
+cli = ["click (>=5.0)"]
+
+[[package]]
 name = "sqlparse"
 version = "0.4.2"
 description = "A non-validating SQL parser."
@@ -91,7 +102,7 @@ python-versions = ">=2"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.10"
-content-hash = "c42bae48ed7a720796d96decde7d00830827b30d60cc780bb118c099c8e336c5"
+content-hash = "c72f1c30b62583674d64ccd9d76dc46c56bd44107fd3fbdfbd715fdf17c7c6fb"
 
 [metadata.files]
 asgiref = [
@@ -227,6 +238,10 @@ psycopg2-binary = [
     {file = "psycopg2_binary-2.9.3-cp39-cp39-musllinux_1_1_x86_64.whl", hash = "sha256:99485cab9ba0fa9b84f1f9e1fef106f44a46ef6afdeec8885e0b88d0772b49e8"},
     {file = "psycopg2_binary-2.9.3-cp39-cp39-win32.whl", hash = "sha256:46f0e0a6b5fa5851bbd9ab1bc805eef362d3a230fbdfbc209f4a236d0a7a990d"},
     {file = "psycopg2_binary-2.9.3-cp39-cp39-win_amd64.whl", hash = "sha256:accfe7e982411da3178ec690baaceaad3c278652998b2c45828aaac66cd8285f"},
+]
+python-dotenv = [
+    {file = "python-dotenv-0.21.0.tar.gz", hash = "sha256:b77d08274639e3d34145dfa6c7008e66df0f04b7be7a75fd0d5292c191d79045"},
+    {file = "python_dotenv-0.21.0-py3-none-any.whl", hash = "sha256:1684eb44636dd462b66c3ee016599815514527ad99965de77f43e0944634a7e5"},
 ]
 sqlparse = [
     {file = "sqlparse-0.4.2-py3-none-any.whl", hash = "sha256:48719e356bb8b42991bdbb1e8b83223757b93789c00910a616a071910ca4a64d"},
