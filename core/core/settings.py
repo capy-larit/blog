@@ -1,6 +1,8 @@
-from pathlib import Path
 import os
+from pathlib import Path
+
 from dotenv import load_dotenv
+
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -78,9 +80,7 @@ DATABASES = {
         'PASSWORD': 'postgres',
         'HOST': '0.0.0.0',
         'PORT': '5432',
-        'OPTIONS': {
-            'options': '-c search_path=blog_db'
-        },
+        'OPTIONS': {'options': '-c search_path=blog_db'},
     }
 }
 
@@ -131,8 +131,8 @@ CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#google config
-EMAIL_BACKEND =  str(os.getenv('EMAIL_BACKEND'))
+# google config
+EMAIL_BACKEND = str(os.getenv('EMAIL_BACKEND'))
 EMAIL_HOST = str(os.getenv('EMAIL_HOST'))
 EMAIL_HOST_USER = str(os.getenv('EMAIL_HOST_USER'))
 EMAIL_HOST_PASSWORD = str(os.getenv('EMAIL_HOST_PASSWORD'))

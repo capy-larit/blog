@@ -14,7 +14,9 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='imagem_capa',
-            field=models.ImageField(blank=True, null=True, upload_to='static/blog/'),
+            field=models.ImageField(
+                blank=True, null=True, upload_to='static/blog/'
+            ),
         ),
         migrations.AddField(
             model_name='post',
