@@ -10,4 +10,5 @@ urlpatterns = [
     path('contato/', include('contato.urls')),
     path('login/', include('autenticacao.urls')),
     path('ckeditor', include('ckeditor_uploader.urls')),
+    path('contas/', include('contas.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
