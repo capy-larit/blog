@@ -1,6 +1,6 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import redirect, render
 
 
 def processa_login(request):
@@ -15,13 +15,14 @@ def processa_login(request):
         if user is not None:
             login(request, user)
             return redirect('home')
-        else:
-            context = {
-                'username': username,
-                'password': password
-            }
-            messages.add_message(request=request, message='Username ou senha incorretos.', level=messages.ERROR)
-            return render(request, 'autenticacao/login.html', context)
+
+        context = {'username': username, 'password': password}
+        messages.add_message(
+            request=request,
+            message='Username ou senha incorretos.',
+            level=messages.ERROR,
+        )
+        return render(request, 'autenticacao/login.html', context)
 
     return render(request, 'autenticacao/login.html')
 

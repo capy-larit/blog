@@ -1,21 +1,21 @@
 import re
 
-from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.contrib.auth.models import User
+from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 
-from . usuario_form import PerfilForm
+from .usuario_form import PerfilForm
 
 
 def validou_email(email):
 
     regex = '^(\w+)@[a-z]+(\.[a-z]+){1,2}$'
 
-    if (re.search(regex, email)):
+    if re.search(regex, email):
         return True
-    else:
-        return False
+
+    return False
 
 
 def criar_conta(request):
@@ -28,20 +28,23 @@ def criar_conta(request):
                 last_name=profile.cleaned_data['last_name'],
                 username=profile.cleaned_data['username'],
                 email=profile.cleaned_data['email'],
-                password=profile.cleaned_data['password']
+                password=profile.cleaned_data['password'],
             )
 
             usr.save()
             return redirect('login')
-        else:
-            return render(request, 'contas/criar_conta.html', {'form': profile})
-    else:
-        return render(request, 'contas/criar_conta.html', {'form': PerfilForm})
-    
+
+        return render(request, 'contas/criar_conta.html', {'form': profile})
+
+    return render(request, 'contas/criar_conta.html', {'form': PerfilForm})
 
 
 def htmx_valida_username(request):
-    context = {'error_usrname': 'Username indisponível', 'st_submit': 'disabled', 'cor': 'red'}
+    context = {
+        'error_usrname': 'Username indisponível',
+        'st_submit': 'disabled',
+        'cor': 'red',
+    }
     username_param = request.POST.get('username')
 
     if not User.objects.filter(username=username_param):
@@ -51,12 +54,18 @@ def htmx_valida_username(request):
     if PerfilForm(request.POST).is_valid():
         context['st_submit'] = ''
 
-    str_template = render_to_string('contas/feedback_form_validation.html', context)
+    str_template = render_to_string(
+        'contas/feedback_form_validation.html', context
+    )
     return HttpResponse(str_template)
 
 
 def htmx_valida_senha(request):
-    context = {'error_pwd': 'As senhas não coincidem', 'st_submit': 'disabled', 'cor': 'red'}
+    context = {
+        'error_pwd': 'As senhas não coincidem',
+        'st_submit': 'disabled',
+        'cor': 'red',
+    }
     pwd_confirm = request.POST.get('pwd_confirm')
     password = request.POST.get('password')
 
@@ -64,7 +73,9 @@ def htmx_valida_senha(request):
         context['error_pwd'] = ''
         context['st_submit'] = ''
 
-    str_template = render_to_string('contas/feedback_form_validation.html', context)
+    str_template = render_to_string(
+        'contas/feedback_form_validation.html', context
+    )
     return HttpResponse(str_template)
 
 
@@ -80,5 +91,7 @@ def htmx_valida_email(request):
         context['usr_email'] = ''
         context['st_submit'] = ''
 
-    str_template = render_to_string('contas/feedback_form_validation.html', context)
+    str_template = render_to_string(
+        'contas/feedback_form_validation.html', context
+    )
     return HttpResponse(str_template)

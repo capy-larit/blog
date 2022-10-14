@@ -142,9 +142,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 CKEDITOR_UPLOAD_PATH = 'uploads/'
 
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'staticfiles/')
-]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'staticfiles/')]
 
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'login'
