@@ -11,7 +11,6 @@ def processa_login(request):
 
         user = authenticate(request, username=username, password=password)
 
-        print(f'{username}----{password}')
         if user is not None:
             login(request, user)
             return redirect('home')
