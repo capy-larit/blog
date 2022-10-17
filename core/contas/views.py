@@ -1,11 +1,13 @@
 import re
 
 from django.contrib.auth.models import User
+from django.db import transaction
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 from django.template.loader import render_to_string
 
-from .usuario_form import PerfilForm
+from .models import Perfil
+from .usuario_form import PerfilForm, UserForm
 
 
 def validou_email(email):
@@ -18,25 +20,40 @@ def validou_email(email):
     return False
 
 
+@transaction.atomic
 def criar_conta(request):
     if request.method == 'POST':
-        profile = PerfilForm(request.POST)
-        if profile.is_valid():
 
+        user = UserForm(request.POST)
+        perfil = PerfilForm(request.POST, request.FILES)
+
+        if perfil.is_valid() and user.is_valid():
             usr = User.objects.create_user(
-                first_name=profile.cleaned_data['first_name'],
-                last_name=profile.cleaned_data['last_name'],
-                username=profile.cleaned_data['username'],
-                email=profile.cleaned_data['email'],
-                password=profile.cleaned_data['password'],
+                first_name=user.cleaned_data['first_name'],
+                last_name=user.cleaned_data['last_name'],
+                username=user.cleaned_data['username'],
+                email=user.cleaned_data['email'],
+                password=user.cleaned_data['password'],
             )
 
-            usr.save()
+            perl = Perfil(
+                bio=perfil.cleaned_data['bio'],
+                foto=perfil.cleaned_data['foto'],
+                user=usr,
+            )
+
+            perl.save()
             return redirect('login')
-
-        return render(request, 'contas/criar_conta.html', {'form': profile})
-
-    return render(request, 'contas/criar_conta.html', {'form': PerfilForm})
+        return render(
+            request,
+            'contas/criar_conta.html',
+            {'form': user, 'form_perfil': perfil},
+        )
+    return render(
+        request,
+        'contas/criar_conta.html',
+        {'form': UserForm(), 'form_perfil': PerfilForm()},
+    )
 
 
 def htmx_valida_username(request):

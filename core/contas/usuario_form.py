@@ -1,9 +1,10 @@
+from contas.models import Perfil
 from django import forms
 from django.contrib.auth.models import User
 from django.forms.models import ModelForm
 
 
-class PerfilForm(ModelForm):
+class UserForm(ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['first_name'].required = True
@@ -24,3 +25,14 @@ class PerfilForm(ModelForm):
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'password': forms.PasswordInput(attrs={'class': 'form-control'}),
         }
+
+
+class PerfilForm(ModelForm):
+    class Meta:
+        model = Perfil
+        fields = ['bio', 'foto']
+
+    widget = {
+        'bio': forms.TextInput(attrs={'class': 'form-control'}),
+        'foto': forms.ImageField(),
+    }
