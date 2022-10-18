@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="card vh-75 vw-100">
+    {% if questao.imagem %}
+      <img src="{{ questao.imagem.url }}" class="card-img-top" alt="Um pedaço de melância desenhada">
+    {% else %}
+      <img src="{% static 'blog/image2.png' %}" class="card-img-top" alt="Um pedaço de melância desenhada">
+    {% endif %}
+
+    <p class="mt-3 p-3 fs-5">
+      {{ questao.enunciado }}
+    </p>
+    <form method="post" action="{% url 'resposta' %}">
+      {% csrf_token %}
+      <div class="card-body">
+        <div class="form-check">
+          <ul class="list-group list-group-flush">
+            {% for alternativa in questao.alternativa_set.all %}
+              <div class="list-group-item">
+                <input class="form-check-input" 
+                       type="radio" 
+                       name="resposta" 
+                       id="id_{{ alternativa.id }}"
+                       value="{{ alternativa.isCorreta }}">
+                <label class="form-check-label mb-3 fs-5" 
+                       for="id_{{ alternativa.id }}">
+                  {{alternativa.texto}}
+                </label>
+              </div>
+            {% endfor %}  
+          </ul>
+          <button hx-post="{% url 'resposta' %}"
+                  hx-target="#msg_feedback"
+                  hx-trigger="click"
+                  class="btn btn-success mt-2 d-grid col-12">
+            Responder
+          </button>
+       </div>
+      </div>
+    </form>
+    <div class="card-footer footer-botom bg-white border-0">
+      <div class="text fs-5 fw-bold">
+        <div class="text-center" id="msg_feedback"></div>
+      </div>
+    </div>
+  </div>
