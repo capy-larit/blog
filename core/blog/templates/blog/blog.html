@@ -1,70 +1,12 @@
-<!DOCTYPE html>
+{% extends 'blog_base.html' %}
 {% load static %}
-<html lang="pt-br">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blog</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="{% static 'blog/css/styles.css' %}" >
-  </head>
-  <body>
+{% block title %} Blog {% endblock %}
+{% block content %}
 
-    <div class="container-fluid bg-dark mb-2">
-      <div class="row justify-content-center">
-        <div class="col-xl-8">
-         <header class="bg-dark my-2">
-          {% include 'fragments/navbar.html' %}
-          {% include 'fragments/carousel.html' %}
-         </header>
-        </div>
-      </div>
-    </div>
-
-    <main class="bg-light">
-      <div class="container-fluid">
-        <div class="row justify-content-center">
-          <div class="col-xl-7">
-            {% for post in posts %}
-            <div class="card mx-5 px-5 py-2 mb-3">
-              <a href="{% url 'post_detail' post.id %}">
-                <img src="{{ post.imagem_capa.url }}" class="card-img-top" alt="Imagem do card">
-              </a>
-              <div class="card-body pb-4">
-                <a href="{% url 'post_detail' post.id %}" class="text-decoration-none text-dark">
-                  <h4 class="card-title">{{ post.0.titulo}}</h4>
-                </a>
-                <p class="card-text">
-                  {{ post.resumo|safe}}
-                </p>
-
-                <p class="card-text">
-                  <small class="text-muted">{{ post.data_publicacao }}</small>
-                </p>
-                <div class="row">
-                  <div class="col-12">
-                    <div class="d-flex justify-content-center">
-                      <div class="span btn">
-                        <i class="fa-solid fa-heart"></i> Curtir
-                      </div>
-                      <div class="span btn">
-                        <i class="fa-solid fa-comment"></i> Comentar
-                      </div>
-                      <div class="span btn">
-                        <i class="fa-sharp fa-solid fa-share"></i> Compartilhar
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-        </div>
-      </div>
-    </main>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
-  </body>
-</html>
+  <div class="col-lg-6">
+    {% for post in posts %}
+      {% include 'fragments/card_base.html' with post=post %}
+      <div class="my-3"></div>
+    {% endfor %}
+  </div>
+{% endblock %}
