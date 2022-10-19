@@ -1,14 +1,20 @@
 from django.db import models
 
+
 class Questao(models.Model):
-    enunciado = models.TextField(max_length=255, null=False, blank=False, default='')
+    enunciado = models.TextField(
+        max_length=255, null=False, blank=False, default=''
+    )
     imagem = models.ImageField(null=True, blank=True, default='')
 
     def __str__(self):
         return self.enunciado
 
+
 class Alternativa(models.Model):
-    texto = models.TextField(max_length=255, null=False, blank=False, default='')
+    texto = models.TextField(
+        max_length=255, null=False, blank=False, default=''
+    )
     isCorreta = models.BooleanField(default=False, null=True, blank=True)
     questao = models.ForeignKey(Questao, on_delete=models.CASCADE)
 
