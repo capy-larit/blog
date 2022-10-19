@@ -1,17 +1,18 @@
 from django.contrib import admin
 
-from .models import Questao, Alternativa
+from .models import Alternativa, Questao
+
 
 class AlternativaInline(admin.TabularInline):
     model = Alternativa
 
+
 class QuestionAdmin(admin.ModelAdmin):
-    inlines = [
-        AlternativaInline
-    ]
+    inlines = [AlternativaInline]
 
     class Meta:
         model = Questao
+
 
 admin.site.register(Questao, QuestionAdmin)
 admin.site.register(Alternativa)
